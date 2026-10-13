@@ -1,0 +1,18 @@
+# Local vaults and application configuration
+private-vault/
+**/.obsidian/
+**/keys.xml
+**/keys.xml.new
+**/settings.json
+**/state.json
+**/state.json.new
+**/stop.requested
+**/obsidian.yaml
+**/*.log
+**/*.log.*
+.env
+.env.*
+!.env.example
+*.exe
+*.zip
+__pycache__/

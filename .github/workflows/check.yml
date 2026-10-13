@@ -1,0 +1,17 @@
+name: PowerShell syntax
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  syntax:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Check with Windows PowerShell 5.1
+        shell: powershell
+        run: .\tests\Test-ScriptSyntax.ps1
