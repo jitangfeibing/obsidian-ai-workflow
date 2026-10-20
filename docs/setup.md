@@ -1,3 +1,5 @@
+> 当前可移植安装入口见 [Codex 迁移手册](codex-migration.md)，以下保留认证字段和早期基线说明。
+
 # 当前 Windows 接入步骤
 
 ## 前置条件
@@ -29,7 +31,7 @@ Obsidian 桌面应用、Local REST API with MCP 插件、OpenAI Tunnel ID、对�
 
 ## 常驻运行
 
-打开 Obsidian 和 Clash 后，使用 `windows/01-Install.cmd` 保存密钥并注册登录启动。细节见 [启动包说明](../windows/README.md)。当前脚本使用 `obsidian` 配置、控制面代理 `http://127.0.0.1:7897` 和管理界面 `http://127.0.0.1:8080/ui`。
+打开 Obsidian 和 Clash 后，使用 `windows/01-Install.cmd` 保存密钥并注册登录启动。细节见 [启动包说明](../windows/README.md)。新版脚本通过 Profile、ProxyUrl 和 HealthListenAddr 参数指定这些值；首次安装默认直连，升级复用原有未显式更改的配置。
 
 如果希望改动端口、配置名称或代理类型，先阅读脚本；这一版没有统一配置向导。
 

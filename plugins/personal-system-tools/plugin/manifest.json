@@ -1,0 +1,9 @@
+{
+  "id": "personal-system-tools",
+  "name": "Personal System Tools",
+  "version": "0.2.1",
+  "minAppVersion": "1.9.0",
+  "description": "Task creation, time logs, live Gantt views and guided weekly review for a personal vault.",
+  "author": "Personal System",
+  "isDesktopOnly": false
+}

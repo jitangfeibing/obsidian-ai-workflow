@@ -12,6 +12,7 @@ try {
     if (-not $ownsMutex) { exit 0 }
     if ($AutoStart) { Remove-Item -LiteralPath $script:StopPath -Force -ErrorAction SilentlyContinue }
     $config = Read-Config
+    Assert-ClientOptions $config
     if (-not (Test-Path -LiteralPath $config.ClientExe)) { throw '找不到 tunnel-client.exe，请重新运行安装程序。' }
     Write-RuntimeLog '后台守护程序启动。'
     while (-not (Test-Path -LiteralPath $script:StopPath)) {
@@ -20,20 +21,20 @@ try {
         Start-Companions $config
         if (-not (Test-Obsidian $config.McpUrl $keys.Obsidian)) {
             Write-State 'WaitingForObsidian'
-            Write-RuntimeLog '等待 Obsidian：请打开正确的库，并确认 HTTP 27123 和插件密钥有效。15 秒后重试。'
+            Write-RuntimeLog ('等待 Obsidian：请打开正确的库，并确认本地服务与插件密钥有效。目标：' + $config.McpUrl)
             if (-not (Wait-Retry 15)) { break }
             continue
         }
         if (-not (Test-ProxyPort $config.ProxyUrl)) {
             Write-State 'WaitingForClash'
-            Write-RuntimeLog '等待 Clash 代理端口 7897。15 秒后重试。'
+            Write-RuntimeLog ('等待配置的代理：' + $config.ProxyUrl + '。15 秒后重试。')
             if (-not (Wait-Retry 15)) { break }
             continue
         }
         $processInfo = New-Object Diagnostics.ProcessStartInfo
         $processInfo.FileName = $config.ClientExe
         $processInfo.WorkingDirectory = Split-Path -Parent $config.ClientExe
-        $processInfo.Arguments = 'run --profile obsidian --health.listen-addr 127.0.0.1:8080 --control-plane.http-proxy http://127.0.0.1:7897'
+        $processInfo.Arguments = Get-ClientArguments $config
         $processInfo.UseShellExecute = $false
         $processInfo.CreateNoWindow = $true
         $processInfo.RedirectStandardOutput = $true
@@ -45,6 +46,7 @@ try {
         # Route the local Obsidian calls directly, even when global proxy variables are inherited.
         $processInfo.EnvironmentVariables['NO_PROXY'] = 'localhost,127.0.0.1,::1'
         $processInfo.EnvironmentVariables['no_proxy'] = 'localhost,127.0.0.1,::1'
+        if (!$config.ProxyUrl) { foreach ($name in @('HTTP_PROXY','HTTPS_PROXY','ALL_PROXY','http_proxy','https_proxy','all_proxy')) { $processInfo.EnvironmentVariables[$name] = '' } }
         $child = New-Object Diagnostics.Process
         $child.StartInfo = $processInfo
         if (-not $child.Start()) { throw '无法创建隧道客户端进程。' }

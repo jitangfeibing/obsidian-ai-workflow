@@ -1,0 +1,324 @@
+{
+  "schemaVersion": 1,
+  "version": "1.1.0",
+  "systemRoot": "personal-system-starter",
+  "plugins": [
+    {
+      "id": "personal-project-pages",
+      "version": "0.5.1",
+      "minAppVersion": "1.8.0"
+    },
+    {
+      "id": "personal-system-tools",
+      "version": "0.2.1",
+      "minAppVersion": "1.9.0"
+    }
+  ],
+  "files": [
+    {
+      "source": "vault-template/personal-system-starter/00_首页.md",
+      "destination": "personal-system-starter/00_首页.md",
+      "sha256": "a4fe3c333a0adf81eae2cda005bacfe1c52e69a86449122e80a7c51848b00034"
+    },
+    {
+      "source": "vault-template/personal-system-starter/01_收集/.keep",
+      "destination": "personal-system-starter/01_收集/.keep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "vault-template/personal-system-starter/01_收集/收集箱.md",
+      "destination": "personal-system-starter/01_收集/收集箱.md",
+      "sha256": "c27ea8e15fbd2350d1625fa241662fa7296d8aaaf9fec94b32e6944b409cc3b0"
+    },
+    {
+      "source": "vault-template/personal-system-starter/02_行动/事务执行.md",
+      "destination": "personal-system-starter/02_行动/事务执行.md",
+      "sha256": "298ea60e62f04891aed959feebea1679266c6fea62945dff67a7e8975d96c697"
+    },
+    {
+      "source": "vault-template/personal-system-starter/02_行动/任务/.keep",
+      "destination": "personal-system-starter/02_行动/任务/.keep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "vault-template/personal-system-starter/03_目标与项目/目标/.keep",
+      "destination": "personal-system-starter/03_目标与项目/目标/.keep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "vault-template/personal-system-starter/03_目标与项目/目标与项目.md",
+      "destination": "personal-system-starter/03_目标与项目/目标与项目.md",
+      "sha256": "a26f721b142360a3c9c7034f293dd8e04ad3d6d333abaa58cd8355d8fdae4b12"
+    },
+    {
+      "source": "vault-template/personal-system-starter/03_目标与项目/项目/.keep",
+      "destination": "personal-system-starter/03_目标与项目/项目/.keep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "vault-template/personal-system-starter/03_目标与项目/项目文档/.keep",
+      "destination": "personal-system-starter/03_目标与项目/项目文档/.keep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "vault-template/personal-system-starter/03_目标与项目/项目甘特图.md",
+      "destination": "personal-system-starter/03_目标与项目/项目甘特图.md",
+      "sha256": "fb8c383d0bbce63b1b3130d3f40da531503070d8216362778d4f62cd941df492"
+    },
+    {
+      "source": "vault-template/personal-system-starter/04_学习/学习中心.md",
+      "destination": "personal-system-starter/04_学习/学习中心.md",
+      "sha256": "0c7a227051505e1dc793363c46abecd8c5521c512c7fc4673ac76cc67806ee1b"
+    },
+    {
+      "source": "vault-template/personal-system-starter/04_学习/知识库.md",
+      "destination": "personal-system-starter/04_学习/知识库.md",
+      "sha256": "336a4aee1f91aaf88e769a50505d7126e762637a48e975aabe8ea7852bc7c685"
+    },
+    {
+      "source": "vault-template/personal-system-starter/04_学习/资料/.keep",
+      "destination": "personal-system-starter/04_学习/资料/.keep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "vault-template/personal-system-starter/05_求职/求职中心.md",
+      "destination": "personal-system-starter/05_求职/求职中心.md",
+      "sha256": "5964db90645c1305065c914321cfced6827dd8a77e1bca8c89ee71bcafb04591"
+    },
+    {
+      "source": "vault-template/personal-system-starter/05_求职/面试记录/.keep",
+      "destination": "personal-system-starter/05_求职/面试记录/.keep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "vault-template/personal-system-starter/06_刷题/刷题中心.md",
+      "destination": "personal-system-starter/06_刷题/刷题中心.md",
+      "sha256": "5455295135a85333f04944dfc3af7cd128f0eabedbea73b08e2695721622bb67"
+    },
+    {
+      "source": "vault-template/personal-system-starter/06_刷题/题目/.keep",
+      "destination": "personal-system-starter/06_刷题/题目/.keep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "vault-template/personal-system-starter/07_回顾/回顾中心.md",
+      "destination": "personal-system-starter/07_回顾/回顾中心.md",
+      "sha256": "a9d2b851bbee68563e5a7a1d64532e90b16d22d38a6d735c1042f8f136f82471"
+    },
+    {
+      "source": "vault-template/personal-system-starter/07_回顾/归档中心.md",
+      "destination": "personal-system-starter/07_回顾/归档中心.md",
+      "sha256": "15661209e7cd3a970c1c76174c0c3b6c0dffbaa26d6c8d6fa76b9e338cb23bb5"
+    },
+    {
+      "source": "vault-template/personal-system-starter/07_回顾/时间记录/.keep",
+      "destination": "personal-system-starter/07_回顾/时间记录/.keep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "vault-template/personal-system-starter/07_回顾/每周/.keep",
+      "destination": "personal-system-starter/07_回顾/每周/.keep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "vault-template/personal-system-starter/07_回顾/每日/.keep",
+      "destination": "personal-system-starter/07_回顾/每日/.keep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "vault-template/personal-system-starter/08_生活/.keep",
+      "destination": "personal-system-starter/08_生活/.keep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "vault-template/personal-system-starter/08_生活/生活记录.md",
+      "destination": "personal-system-starter/08_生活/生活记录.md",
+      "sha256": "15f4a046cff50d9b0fcb20d919fe3502277944a4e696f1f84d5055974c1c4869"
+    },
+    {
+      "source": "vault-template/personal-system-starter/90_视图/任务.base",
+      "destination": "personal-system-starter/90_视图/任务.base",
+      "sha256": "5d9f1810f539f157388e0accf5684b84dd443ec0ac5a43af9b444f76aadc68d5"
+    },
+    {
+      "source": "vault-template/personal-system-starter/90_视图/刷题.base",
+      "destination": "personal-system-starter/90_视图/刷题.base",
+      "sha256": "6c4777f679e05d9fa01a4bfc4dd6691b4a561c22e03635026f18b91d5ae7358e"
+    },
+    {
+      "source": "vault-template/personal-system-starter/90_视图/学习.base",
+      "destination": "personal-system-starter/90_视图/学习.base",
+      "sha256": "47da6f411349753dc7bc260e948fecf6af4cf29d1d6d145518d9f621f848b6a3"
+    },
+    {
+      "source": "vault-template/personal-system-starter/90_视图/归档.base",
+      "destination": "personal-system-starter/90_视图/归档.base",
+      "sha256": "41c402c499339e77401d058d72e1b706d3444af6d70e652af4b90d92544ad867"
+    },
+    {
+      "source": "vault-template/personal-system-starter/90_视图/收集.base",
+      "destination": "personal-system-starter/90_视图/收集.base",
+      "sha256": "410de49f492d2b8c1d97b7c4af37f26da07dfdf908fe2aa5c9a0e020429b3f14"
+    },
+    {
+      "source": "vault-template/personal-system-starter/90_视图/求职.base",
+      "destination": "personal-system-starter/90_视图/求职.base",
+      "sha256": "231ed1936689acdbeaa197021f98a65cb7f58826cae7516e46e54774afb959bd"
+    },
+    {
+      "source": "vault-template/personal-system-starter/90_视图/生活.base",
+      "destination": "personal-system-starter/90_视图/生活.base",
+      "sha256": "0121bcb5bee00e8baebe9fcd84af87203cc03f437725e6a42b740ca1a1fac180"
+    },
+    {
+      "source": "vault-template/personal-system-starter/90_视图/知识.base",
+      "destination": "personal-system-starter/90_视图/知识.base",
+      "sha256": "69a10e26060c600aff1053dd551ccb2f96be4f3338a28eafb06432dd2dba45ea"
+    },
+    {
+      "source": "vault-template/personal-system-starter/90_视图/项目.base",
+      "destination": "personal-system-starter/90_视图/项目.base",
+      "sha256": "e569ac1be5fd6d0f65dae92af2fa90fc760c4453938184e9a5da5865150a0966"
+    },
+    {
+      "source": "vault-template/personal-system-starter/90_视图/首页.base",
+      "destination": "personal-system-starter/90_视图/首页.base",
+      "sha256": "485a78d56dc997d5a0bc41017b7664e2d778064bef7541423a713103fa987744"
+    },
+    {
+      "source": "vault-template/personal-system-starter/91_模板/任务.md",
+      "destination": "personal-system-starter/91_模板/任务.md",
+      "sha256": "8238b79d65190366982c0aec550876f78a090c79e207c916e2375c79dddad0df"
+    },
+    {
+      "source": "vault-template/personal-system-starter/91_模板/刷题.md",
+      "destination": "personal-system-starter/91_模板/刷题.md",
+      "sha256": "25d21db28d2164608b1e775a17313bb90e565bdfb5e27ca4dcb0e2db7ccef24e"
+    },
+    {
+      "source": "vault-template/personal-system-starter/91_模板/周回顾.md",
+      "destination": "personal-system-starter/91_模板/周回顾.md",
+      "sha256": "46826ffacbb95a6de5c11d44b9e1d171d28b2c0f12d754b8ca95c8b872a46f81"
+    },
+    {
+      "source": "vault-template/personal-system-starter/91_模板/每日记录.md",
+      "destination": "personal-system-starter/91_模板/每日记录.md",
+      "sha256": "533fee0562f6a6c005f672311d93987b0914aca542c227d842830bfda45ae826"
+    },
+    {
+      "source": "vault-template/personal-system-starter/91_模板/生活.md",
+      "destination": "personal-system-starter/91_模板/生活.md",
+      "sha256": "fe63a8a82c5749318c77b73fde2dea8537da556bb23ac8fa0890e5f851fd85c5"
+    },
+    {
+      "source": "vault-template/personal-system-starter/91_模板/知识.md",
+      "destination": "personal-system-starter/91_模板/知识.md",
+      "sha256": "867f3ab1cc7d2cd358d9eaa19abdb1e6e09208371f662a71ca85c44485f78c65"
+    },
+    {
+      "source": "vault-template/personal-system-starter/91_模板/章节学习.md",
+      "destination": "personal-system-starter/91_模板/章节学习.md",
+      "sha256": "3cdc7e312da71b85bf5f5f53bc1b1911d7b03a66b2f14414c70bd87e7b91fce2"
+    },
+    {
+      "source": "vault-template/personal-system-starter/91_模板/随手收集.md",
+      "destination": "personal-system-starter/91_模板/随手收集.md",
+      "sha256": "d58adc3dce54c06fae3a78f51a11fdc974a254be96c10660d7a20f2c8f3aef5e"
+    },
+    {
+      "source": "vault-template/personal-system-starter/91_模板/面试.md",
+      "destination": "personal-system-starter/91_模板/面试.md",
+      "sha256": "4cdb12759cde0250f34830c062afa499ee03368e6bbfe52980d7c4ec357cda50"
+    },
+    {
+      "source": "vault-template/personal-system-starter/91_模板/项目.md",
+      "destination": "personal-system-starter/91_模板/项目.md",
+      "sha256": "947ee0dc01fcea542a59a956bb839085c18de9722e9cb860af33a0626f080ab3"
+    },
+    {
+      "source": "vault-template/personal-system-starter/91_模板/项目文档.md",
+      "destination": "personal-system-starter/91_模板/项目文档.md",
+      "sha256": "2a0d931658721f97bfed08c0d0bbdfb341a69fa3fa700692347b2536af8af137"
+    },
+    {
+      "source": "vault-template/personal-system-starter/92_AI协作/AI 协作约定.md",
+      "destination": "personal-system-starter/92_AI协作/AI 协作约定.md",
+      "sha256": "739a63839b7154ec2ee2ef394d36845e1749f1d9dfe3e4f9deef586f770a681d"
+    },
+    {
+      "source": "vault-template/personal-system-starter/92_AI协作/MCP 接入说明.md",
+      "destination": "personal-system-starter/92_AI协作/MCP 接入说明.md",
+      "sha256": "962eaf0b85dd0b168945679467dee4245b0bcc8c0adfb2e15a5701e543b78272"
+    },
+    {
+      "source": "vault-template/personal-system-starter/92_AI协作/备份与恢复.md",
+      "destination": "personal-system-starter/92_AI协作/备份与恢复.md",
+      "sha256": "6f90bd6b70073fd9d791779300f0bb931a429c7f351118e00f6013762f7865a9"
+    },
+    {
+      "source": "vault-template/personal-system-starter/92_AI协作/学习与复习使用.md",
+      "destination": "personal-system-starter/92_AI协作/学习与复习使用.md",
+      "sha256": "bda946dc7de9da0d67a60040baaba7fdb78698d725221d0e8b431b8bcb6adb7c"
+    },
+    {
+      "source": "vault-template/personal-system-starter/92_AI协作/网页收集使用.md",
+      "destination": "personal-system-starter/92_AI协作/网页收集使用.md",
+      "sha256": "913c94432ee2c5850f0c97da9dc774c0ecd812d902caa46901a3d1c4a7cd69a8"
+    },
+    {
+      "source": "vault-template/personal-system-starter/92_AI协作/跨聊天协作使用.md",
+      "destination": "personal-system-starter/92_AI协作/跨聊天协作使用.md",
+      "sha256": "a47c0165148d3d4690caf16085545d61379979743ee371f828ace213cdad882e"
+    },
+    {
+      "source": "vault-template/personal-system-starter/92_AI协作/项目页面助手使用.md",
+      "destination": "personal-system-starter/92_AI协作/项目页面助手使用.md",
+      "sha256": "b0332e187f38b59875ced33ba684ec868e08cc6ee773c65d8ead3b150cdd17ef"
+    },
+    {
+      "source": "vault-template/personal-system-starter/92_AI协作/首页工作台使用.md",
+      "destination": "personal-system-starter/92_AI协作/首页工作台使用.md",
+      "sha256": "7a7b96a89b45755f4781dab7579e1d292b6804759cb13935515c1ef52c9ddc94"
+    },
+    {
+      "source": "vault-template/personal-system-starter/开始使用.md",
+      "destination": "personal-system-starter/开始使用.md",
+      "sha256": "c29f2b63bc553037df6c3d5babbd58313fc675bd8de0bdb9f92cc3eaf71a6bf2"
+    },
+    {
+      "source": "plugins/personal-project-pages/plugin/assets/forest-banner.png",
+      "destination": ".obsidian/plugins/personal-project-pages/assets/forest-banner.png",
+      "sha256": "150399f070fc101d031bc73921667ad9dd7883ddbf3c6335537332e92c269d3a"
+    },
+    {
+      "source": "plugins/personal-project-pages/plugin/main.js",
+      "destination": ".obsidian/plugins/personal-project-pages/main.js",
+      "sha256": "d45f7c6c289771483dca568e34b7a2943e42dcd70973deef87b7ef98552dcfda"
+    },
+    {
+      "source": "plugins/personal-project-pages/plugin/manifest.json",
+      "destination": ".obsidian/plugins/personal-project-pages/manifest.json",
+      "sha256": "ac7b5c7302ce3f10456426589f15679ebcd3e0031cdd8f4fc7b8d5c07e077c19"
+    },
+    {
+      "source": "plugins/personal-project-pages/plugin/styles.css",
+      "destination": ".obsidian/plugins/personal-project-pages/styles.css",
+      "sha256": "7b956e6e8e2a814981363e5a4d0f08c6e1b7812015e9627e457009fe30cf6a6b"
+    },
+    {
+      "source": "plugins/personal-system-tools/plugin/main.js",
+      "destination": ".obsidian/plugins/personal-system-tools/main.js",
+      "sha256": "f3b6d0bc5e27df904dee0dfef30100805a6c374b03b5cd10bb25a03d9f0d8596"
+    },
+    {
+      "source": "plugins/personal-system-tools/plugin/manifest.json",
+      "destination": ".obsidian/plugins/personal-system-tools/manifest.json",
+      "sha256": "1ffb3d395e831b5a631111b49d024be23b6d3bf14ebdc5b307144353091637a2"
+    },
+    {
+      "source": "plugins/personal-system-tools/plugin/styles.css",
+      "destination": ".obsidian/plugins/personal-system-tools/styles.css",
+      "sha256": "09fbd336bdcec0b8ac3936ca9b74cff2baddb83e76d544833761971691a91804"
+    }
+  ]
+}

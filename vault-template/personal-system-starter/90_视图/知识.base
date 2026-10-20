@@ -1,0 +1,39 @@
+filters:
+  and:
+  - file.inFolder("personal-system-starter")
+  - file.ext == "md"
+  - '!("/" + file.path).contains("/91_模板/")'
+  - '!("/" + file.path).lower().contains("/templates/")'
+  - '!file.inFolder("personal-system-starter/99_迁移记录")'
+  - note.is_example != true
+  - note.archived != true
+  - '["knowledge", "learning", "resource"].contains(note.type)'
+properties:
+  file.name:
+    displayName: 名称
+  note.分类:
+    displayName: 分类
+  note.status:
+    displayName: 状态
+  note.created:
+    displayName: 记录日期
+  note.topic:
+    displayName: 主题
+  note.archived:
+    displayName: 归档
+views:
+- type: table
+  name: 知识列表
+  order:
+  - file.name
+  - 分类
+  - topic
+  - status
+  - created
+  - archived
+- type: cards
+  name: 知识卡片
+  order:
+  - file.name
+  - topic
+  - status

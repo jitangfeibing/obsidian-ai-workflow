@@ -1,9 +1,9 @@
 ﻿#requires -Version 5.1
-param([switch]$ResetKeys)
+param([switch]$ResetKeys,[string]$ClientExe,[string]$Profile='obsidian',[string]$McpUrl='http://127.0.0.1:27123/mcp/',[string]$ProxyUrl='',[string]$HealthListenAddr='127.0.0.1:8080',[string]$ObsidianExe,[string]$ClashExe)
 . (Join-Path $PSScriptRoot 'Common.ps1')
 Assert-Windows
 Write-Host 'Obsidian 隧道：本机加密密钥 + 登录自动启动' -ForegroundColor Cyan
-Write-Host '请先打开 Obsidian 的目标库和 Clash。无需管理员身份运行。'
+Write-Host '请先打开 Obsidian 的目标库；使用代理时确保代理已运行。无需管理员身份运行。'
 
 # Parse every shipped script before making changes, using the native PowerShell parser.
 foreach ($file in Get-ChildItem -LiteralPath $PSScriptRoot -Filter '*.ps1') {
@@ -12,31 +12,33 @@ foreach ($file in Get-ChildItem -LiteralPath $PSScriptRoot -Filter '*.ps1') {
     [Management.Automation.Language.Parser]::ParseFile($file.FullName, [ref]$tokens, [ref]$parseErrors) | Out-Null
     if ($null -ne $parseErrors -and $parseErrors.Count -gt 0) { throw ('脚本语法检查失败：' + $file.Name) }
 }
-$clientExe = 'D:\app\tunnel-client-v0.0.16-windows-amd64\tunnel-client.exe'
 if (Test-Path -LiteralPath $script:ConfigPath) {
     $previous = Read-Config
-    $clientExe = $previous.ClientExe
+    foreach ($name in @('ClientExe','Profile','McpUrl','ProxyUrl','HealthListenAddr','ObsidianExe','ClashExe')) {
+        if (!$PSBoundParameters.ContainsKey($name) -and $previous.PSObject.Properties[$name]) { Set-Variable -Name $name -Value $previous.$name }
+    }
 }
-if (-not (Test-Path -LiteralPath $clientExe)) {
+if (!$ClientExe) { $found = Get-Command tunnel-client.exe -ErrorAction SilentlyContinue; if ($null -ne $found) { $ClientExe = $found.Source } }
+if (!$clientExe -or -not (Test-Path -LiteralPath $clientExe)) {
     $clientExe = (Read-Host '请输入 tunnel-client.exe 的完整路径').Trim().Trim('"')
 }
 if (-not (Test-Path -LiteralPath $clientExe -PathType Leaf)) { throw '找不到隧道客户端。安装已停止。' }
 if ([IO.Path]::GetFileName($clientExe) -ine 'tunnel-client.exe') { throw '请选择 tunnel-client.exe 文件。' }
-$profilePath = Join-Path $env:APPDATA 'tunnel-client\obsidian.yaml'
+$options = [pscustomobject]@{Profile=$Profile;McpUrl=$McpUrl;ProxyUrl=$ProxyUrl;HealthListenAddr=$HealthListenAddr}
+Assert-ClientOptions $options
+$profilePath = Join-Path $env:APPDATA ('tunnel-client\' + $Profile + '.yaml')
 if (-not (Test-Path -LiteralPath $profilePath)) {
     throw ('找不到现有配置：' + $profilePath + '。请使用之前配置隧道的 Windows 账户运行。')
 }
-$obsidianExe = Find-RunningApp @('Obsidian')
-$clashExe = Find-RunningApp @('clash-verge', 'Clash Verge')
-if (-not $obsidianExe -or -not $clashExe) {
-    throw '请先打开 Obsidian 和 Clash Verge，然后重新运行安装程序。程序需要记录它们的实际安装路径。'
-}
+if (!$ObsidianExe) { $ObsidianExe = Find-RunningApp @('Obsidian') }
+if ($ProxyUrl -and !$ClashExe) { $ClashExe = Find-RunningApp @('clash-verge', 'Clash Verge') }
+if (!$ObsidianExe -or !(Test-Path -LiteralPath $ObsidianExe -PathType Leaf)) { throw '请先打开 Obsidian，或提供 -ObsidianExe 的实际路径。' }
 Protect-AppFolder
 if ($ResetKeys -or -not (Test-Path -LiteralPath $script:SecretsPath)) {
-    Save-Keys 'http://127.0.0.1:27123/mcp/'
+    Save-Keys $McpUrl
 } else {
     $existingKeys = Read-Keys
-    if (-not (Test-Obsidian 'http://127.0.0.1:27123/mcp/' $existingKeys.Obsidian)) {
+    if (-not (Test-Obsidian $McpUrl $existingKeys.Obsidian)) {
         throw '已保存的 Obsidian 密钥验证失败。打开正确的库，或运行 05-UpdateKeys.cmd。'
     }
     $existingKeys = $null
@@ -48,7 +50,7 @@ if (Test-Path -LiteralPath $script:ConfigPath) { Stop-Background }
 # Other tunnel profiles and other applications are not stopped.
 foreach ($process in @(Get-CimInstance Win32_Process -Filter "Name = 'tunnel-client.exe'")) {
     if ([string]::Equals($process.ExecutablePath, $clientExe, [StringComparison]::OrdinalIgnoreCase) -and
-        $process.CommandLine -match '(?:^|\s)--profile(?:=|\s+)"?obsidian"?(?:\s|$)') {
+        $process.CommandLine -match ('(?:^|\s)--profile(?:=|\s+)"?' + [regex]::Escape($Profile) + '"?(?:\s|$)')) {
         Stop-Process -Id $process.ProcessId -Force -ErrorAction SilentlyContinue
     }
 }
@@ -62,9 +64,10 @@ foreach ($file in Get-ChildItem -LiteralPath $PSScriptRoot -File) {
 }
 $config = [ordered]@{
     ClientExe = $clientExe
-    Profile = 'obsidian'
-    McpUrl = 'http://127.0.0.1:27123/mcp/'
-    ProxyUrl = 'http://127.0.0.1:7897'
+    Profile = $Profile
+    McpUrl = $McpUrl
+    ProxyUrl = $ProxyUrl
+    HealthListenAddr = $HealthListenAddr
     ObsidianExe = $obsidianExe
     ClashExe = $clashExe
     StartupMode = 'ScheduledTask'

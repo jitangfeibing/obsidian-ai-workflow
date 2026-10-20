@@ -1,0 +1,65 @@
+filters:
+  and:
+  - file.inFolder("personal-system-starter")
+  - file.ext == "md"
+  - '!("/" + file.path).contains("/91_模板/")'
+  - '!("/" + file.path).lower().contains("/templates/")'
+  - '!file.inFolder("personal-system-starter/99_迁移记录")'
+  - note.is_example != true
+  - note.archived != true
+  - note.type == "exercise"
+properties:
+  file.name:
+    displayName: 名称
+  note.status:
+    displayName: 状态
+  note.topic:
+    displayName: 主题
+  note.due:
+    displayName: 截止日期
+  note.priority:
+    displayName: 优先
+  note.parent:
+    displayName: 所属项目
+  note.mastery:
+    displayName: 掌握程度
+  note.created:
+    displayName: 记录日期
+  note.next_review:
+    displayName: 下次复习
+  note.company:
+    displayName: 公司
+  note.interview_date:
+    displayName: 面试日期
+  note.source_url:
+    displayName: 原页面
+  note.type:
+    displayName: 类型
+  note.start:
+    displayName: 开始
+  note.end:
+    displayName: 结束
+  note.import_status:
+    displayName: 迁移状态
+  note.archived:
+    displayName: 归档
+views:
+- type: table
+  name: 题目
+  order:
+  - file.name
+  - topic
+  - status
+  - mastery
+  - next_review
+  - archived
+- type: table
+  name: 到期复习
+  filters:
+    and:
+    - note.next_review && note.next_review <= today()
+  order:
+  - file.name
+  - next_review
+  - mastery
+  - archived

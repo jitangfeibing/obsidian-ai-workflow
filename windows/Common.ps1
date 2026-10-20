@@ -12,6 +12,7 @@ $script:UserSid = [Security.Principal.WindowsIdentity]::GetCurrent().User.Value
 $script:TaskName = 'ObsidianTunnel-' + $script:UserSid
 $script:Redactions = @()
 $script:SessionId = [Diagnostics.Process]::GetCurrentProcess().SessionId
+. (Join-Path $PSScriptRoot 'Client.Options.ps1')
 
 function Assert-Windows {
     if ([Environment]::OSVersion.Platform -ne [PlatformID]::Win32NT) {

@@ -1,0 +1,82 @@
+filters:
+  and:
+  - file.inFolder("personal-system-starter")
+  - file.ext == "md"
+  - '!("/" + file.path).contains("/91_模板/")'
+  - '!("/" + file.path).lower().contains("/templates/")'
+  - '!file.inFolder("personal-system-starter/99_迁移记录")'
+  - note.is_example != true
+  - note.archived != true
+  - '["project", "project_doc"].contains(note.type)'
+properties:
+  note.分类:
+    displayName: 分类
+  file.name:
+    displayName: 名称
+  note.status:
+    displayName: 状态
+  note.topic:
+    displayName: 主题
+  note.due:
+    displayName: 截止日期
+  note.priority:
+    displayName: 优先
+  note.parent:
+    displayName: 所属项目
+  note.mastery:
+    displayName: 掌握程度
+  note.created:
+    displayName: 记录日期
+  note.next_review:
+    displayName: 下次复习
+  note.company:
+    displayName: 公司
+  note.interview_date:
+    displayName: 面试日期
+  note.source_url:
+    displayName: 原页面
+  note.type:
+    displayName: 类型
+  note.start:
+    displayName: 开始
+  note.end:
+    displayName: 结束
+  note.import_status:
+    displayName: 迁移状态
+  note.archived:
+    displayName: 归档
+views:
+- type: table
+  name: 项目列表
+  filters:
+    and:
+    - note.type == "project"
+  order:
+  - file.name
+  - 分类
+  - status
+  - start
+  - end
+  - archived
+  columnSize:
+    note.分类: 221
+- type: cards
+  name: 项目卡片
+  filters:
+    and:
+    - note.type == "project"
+  order:
+  - file.name
+  - 分类
+  - status
+- type: table
+  name: 项目文档
+  filters:
+    and:
+    - note.type == "project_doc"
+  order:
+  - file.name
+  - parent
+  - status
+  - created
+  - archived

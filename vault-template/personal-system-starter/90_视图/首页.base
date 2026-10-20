@@ -1,0 +1,117 @@
+filters:
+  and:
+  - file.inFolder("personal-system-starter")
+  - file.ext == "md"
+  - '!("/" + file.path).contains("/91_模板/")'
+  - '!("/" + file.path).lower().contains("/templates/")'
+  - '!file.inFolder("personal-system-starter/99_迁移记录")'
+  - note.is_example != true
+  - note.archived != true
+  - '["capture", "task", "project_doc", "learning", "knowledge", "resource"].contains(note.type)'
+formulas:
+  已完成: '["完成", "已完成", "Done", "done"].contains(note.status)'
+  暂缓行动: '["暂停", "将来也许", "取消", "已取消", "Paused", "paused", "On hold", "on hold", "Canceled", "Cancelled", "canceled", "cancelled"].contains(note.status)'
+  截止日: if(note.due, date(note.due.toString()).date(), null)
+  计划开始日: if(note.start, date(note.start.toString()).date(), null)
+  复习日: if(note.next_review, date(note.next_review.toString()).date(), null)
+properties:
+  file.name:
+    displayName: 名称
+  note.status:
+    displayName: 状态
+  note.due:
+    displayName: 截止日期
+  note.parent:
+    displayName: 所属项目
+  note.分类:
+    displayName: 分类
+  note.created:
+    displayName: 记录日期
+  note.mastery:
+    displayName: 掌握程度
+  note.next_review:
+    displayName: 复习日期
+views:
+- type: table
+  name: 今日重点
+  limit: 5
+  filters:
+    and:
+    - note.type == "task"
+    - '!formula.已完成'
+    - '!formula.暂缓行动'
+    - or:
+      - note.priority == true
+      - '["进行中", "正在进行", "In progress", "in progress"].contains(note.status)'
+      - formula.截止日 == today()
+      - formula.计划开始日 == today()
+  order:
+  - file.name
+  - note.status
+  - note.due
+  - note.parent
+  sort:
+  - property: note.priority
+    direction: DESC
+  - property: note.due
+    direction: ASC
+  columnSize:
+    file.name: 250
+    note.status: 105
+    note.due: 125
+    note.parent: 180
+- type: table
+  name: 收集待处理
+  limit: 5
+  filters:
+    and:
+    - note.type == "capture"
+  order:
+  - file.name
+  - note.分类
+  - note.created
+  sort:
+  - property: note.created
+    direction: ASC
+- type: table
+  name: 截止提醒
+  limit: 5
+  filters:
+    and:
+    - note.type == "task"
+    - '!formula.已完成'
+    - formula.截止日 && formula.截止日 < today()
+  order:
+  - file.name
+  - note.status
+  - note.due
+  sort:
+  - property: note.due
+    direction: ASC
+- type: table
+  name: 到期复习
+  limit: 5
+  filters:
+    and:
+    - '["learning", "knowledge", "resource"].contains(note.type)'
+    - formula.复习日 && formula.复习日 <= today()
+  order:
+  - file.name
+  - note.mastery
+  - note.next_review
+  sort:
+  - property: note.next_review
+    direction: ASC
+- type: table
+  name: 最近项目文档
+  limit: 5
+  filters:
+    and:
+    - note.type == "project_doc"
+  order:
+  - file.name
+  - note.parent
+  - note.status
+  sort:
+  - property: file.mtime
+    direction: DESC

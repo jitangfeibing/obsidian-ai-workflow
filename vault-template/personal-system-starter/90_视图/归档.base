@@ -1,0 +1,32 @@
+filters:
+  and:
+  - file.inFolder("personal-system-starter")
+  - file.ext == "md"
+  - '!("/" + file.path).contains("/91_模板/")'
+  - '!("/" + file.path).lower().contains("/templates/")'
+  - '!file.inFolder("personal-system-starter/99_迁移记录")'
+  - note.is_example != true
+  - note.archived == true
+views:
+- type: table
+  name: 归档
+  order:
+  - file.name
+  - type
+  - status
+  - archived
+  - parent
+  - created
+properties:
+  note.archived:
+    displayName: 归档
+  file.name:
+    displayName: 名称
+  note.type:
+    displayName: 类型
+  note.status:
+    displayName: 状态
+  note.parent:
+    displayName: 所属项目
+  note.created:
+    displayName: 记录日期

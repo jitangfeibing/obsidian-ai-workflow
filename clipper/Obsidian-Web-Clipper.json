@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "个人系统 · 网页到收集箱",
+  "behavior": "create",
+  "noteNameFormat": "{{date|date:\"YYYY-MM-DD HHmmss\"}} {{title|safe_name|slice:0,80}}",
+  "path": "personal-system-starter/01_收集",
+  "noteContentFormat": "# {{title}}\n\n## 原始输入\n\n{{content}}\n\n## 资料与来源\n\n- 来源链接：{{url}}\n- 网页标题：{{title}}\n- 剪藏时间：{{date|date:\"YYYY-MM-DD HH:mm:ss\"}}\n\n## 希望讨论或处理的问题\n\n",
+  "properties": [
+    {"name": "type", "value": "capture", "type": "text"},
+    {"name": "分类", "value": "未分类", "type": "text"},
+    {"name": "archived", "value": "false", "type": "checkbox"},
+    {"name": "status", "value": "未整理", "type": "text"},
+    {"name": "created", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "source_url", "value": "{{url}}", "type": "text"},
+    {"name": "capture_source", "value": "web-clipper", "type": "text"}
+  ],
+  "triggers": []
+}

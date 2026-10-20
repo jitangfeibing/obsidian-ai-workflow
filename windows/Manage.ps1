@@ -40,12 +40,13 @@ switch ($Action) {
             } else { Write-Host 'Obsidian 本地接口：未就绪或密钥不匹配' -ForegroundColor Yellow }
             $keys = $null
         } catch { Write-Host '密钥无法解密，请在原 Windows 账户下运行，或更新密钥。' -ForegroundColor Yellow }
-        Write-Host ('Clash 7897 端口可连接：' + (Test-ProxyPort $config.ProxyUrl))
+        Write-Host ('代理配置：' + $(if ($config.ProxyUrl) { $config.ProxyUrl } else { '直连' }))
+        Write-Host ('代理检查通过：' + (Test-ProxyPort $config.ProxyUrl))
         if ($null -ne $child) {
             try {
-                $health = Get-LocalJson 'http://127.0.0.1:8080/health'
+                $health = Get-LocalJson ('http://' + (Get-HealthAddress $config) + '/health')
                 Write-Host ('客户端存活：' + $health.live + '；就绪：' + $health.ready)
-                $control = Get-LocalJson 'http://127.0.0.1:8080/health/control-plane'
+                $control = Get-LocalJson ('http://' + (Get-HealthAddress $config) + '/health/control-plane')
                 Write-Host ('OpenAI 控制连接：' + $control.status + ' / ' + $control.state)
                 if ($control.status -eq 'ok') {
                     Write-Host '已观察到正常控制连接。最后仍以 ChatGPT 实际读取笔记为准。' -ForegroundColor Green

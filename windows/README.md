@@ -1,6 +1,6 @@
 # Obsidian 隧道登录启动包
 
-适用于你已配置好的 Windows AMD64 客户端、`obsidian` 配置、Obsidian HTTP 27123 和 Clash Verge 代理 7897。
+适用于 Windows 的当前用户后台隧道。客户端路径、profile、本地 MCP URL、代理与健康端口均可配置；直连不要求运行 Clash。
 
 当前版本已修正普通用户安装时可能出现的 `SeSecurityPrivilege` 错误：只修改安装目录的读写访问规则，不设置审计权限或更改所有者。若旧版已经安装并连通，日常使用不需要重新安装；本修正用于后续安装或更新。
 
@@ -12,7 +12,7 @@
 4. 等安装窗口提示后，复制 **OpenAI Runtime API Key**，回窗口按回车；等第二次提示，再复制 **Obsidian 插件 API Key**，按回车。不要把密钥粘贴到命令行或聊天里。
 5. 出现“安装完成”后可以关闭窗口。稍等后双击桌面的 **Obsidian Tunnel - Status** 检查状态。
 
-默认客户端路径是 `D:\app\tunnel-client-v0.0.16-windows-amd64\tunnel-client.exe`。找不到时安装程序会询问实际路径。
+先从参数、已有配置或 PATH 查找客户端，未找到时询问实际路径，不绑定作者电脑。
 
 两种密钥只在第一次安装、主动更换或失效后需要提供。安装程序先验证 Obsidian 密钥，再通过 Windows 的账户加密机制保存并回读验证。密钥不写入脚本、任务参数、普通环境变量配置或日志；运行时只传入客户端进程环境。此密钥文件只能由本机同一个 Windows 账户解密。不要在另一账户下安装，也不要把安装后的密钥文件当作跨电脑备份。
 
@@ -39,7 +39,7 @@
 ## 状态判断
 
 - `WaitingForObsidian`：打开正确的库，确认插件和 HTTP 27123；密钥变更后运行 UpdateKeys。
-- `WaitingForClash`：确认 Clash 正在运行，代理端口仍为 7897。
+- `WaitingForClash`：确认配置的代理地址可连接；此状态名兼容旧版，实际 URL 以 Status 为准。
 - `Running`：客户端进程正在运行；不能仅凭此判断已经连通 OpenAI。
 - `OpenAI 控制连接：ok / ...`：客户端观察到正常控制连接。最后仍应在 ChatGPT 实际读取笔记验证。
 - 客户端内存会显示在 Status 中，也可以在任务管理器的“详细信息”里查看 `tunnel-client.exe`。
@@ -62,3 +62,25 @@
 - [tunnel-client v0.0.16 配置文档](https://github.com/openai/tunnel-client/blob/v0.0.16/docs/configuration.md)
 - [Windows 加密保存凭据说明](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/export-clixml?view=powershell-7.5)
 - [计划任务设置说明](https://learn.microsoft.com/en-us/powershell/module/scheduledtasks/new-scheduledtasksettingsset?view=windowsserver2025-ps)
+
+## 可移植配置（1.1.0）
+
+推荐由 Codex 按实际环境调用 Install.ps1：
+
+```powershell
+.\windows\Install.ps1 -ClientExe "E:\Tools\tunnel-client.exe" -Profile obsidian -McpUrl "http://127.0.0.1:27123/mcp/" -ProxyUrl ""
+```
+
+| 参数 | 含义 |
+| --- | --- |
+| ClientExe | 实际 tunnel-client.exe 路径；未提供时复用配置或查 PATH |
+| Profile | 已初始化的 profile，默认 obsidian |
+| McpUrl | 本机插件的真实 MCP URL；需与 profile 对应 |
+| ProxyUrl | 留空直连；使用代理时传实际 HTTP(S) 地址 |
+| HealthListenAddr | 本机管理监听地址，默认 127.0.0.1:8080 |
+| ObsidianExe | 可选实际程序路径，否则从当前会话进程查找 |
+| ClashExe | 可选代理程序路径，不限定必须使用 Clash |
+
+再次安装时，未显式传入的参数沿用旧配置。密钥仍按本机剪贴板提示输入并用 Windows 当前用户加密；不放入命令行或仓库。
+
+保存密钥后可运行 **08-Doctor.cmd**，它将凭证放入短生命周期进程环境，执行 doctor 并遮盖可能回显的密钥。不同客户端版本的本地 OAuth 发现能力以实际日志和认证方案为准；继续使用 Status 与 ChatGPT 实际工具调用确认连接。

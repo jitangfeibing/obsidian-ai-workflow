@@ -1,0 +1,9 @@
+{
+  "id": "personal-project-pages",
+  "name": "项目页面助手",
+  "version": "0.5.1",
+  "minAppVersion": "1.8.0",
+  "description": "个人首页、项目工作区与学习复习：收集分类、父子关联、章节创建、复习安排、原始证据与归档恢复。",
+  "author": "Personal System",
+  "isDesktopOnly": false
+}
