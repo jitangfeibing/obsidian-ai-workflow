@@ -16,6 +16,24 @@ try {
     $homePagePath=Join-Safe $vault 'personal-system-starter/00_首页.md'
     Check (Test-Path -LiteralPath $homePagePath) 'Home missing'
     Check (@((Read-JsonFile (Join-Safe $vault '.obsidian/community-plugins.json'))).Count -eq 2) 'Plugins not enabled'
+    # JSON arrays must merge identically on Windows PowerShell 5.1 and PowerShell 7.
+    $communityFile=Join-Safe $vault '.obsidian/community-plugins.json'
+    foreach ($case in @(@{ids=@()},@{ids=@('single-plugin')},@{ids=@('first-plugin','second-plugin')})) {
+        Write-Atomic $communityFile ([Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject @($case.ids)) + "`n"))
+        $merged=& (Join-Path $repo 'setup/Install-System.ps1') -VaultPath $vault | ConvertFrom-Json
+        $actualIds=@(Read-JsonFile $communityFile)
+        foreach ($requiredId in @('personal-project-pages','personal-system-tools') + @($case.ids)) {
+            Check ($actualIds -contains $requiredId) 'Plugin array merge lost an ID'
+        }
+        Check ($actualIds.Count -eq (2 + @($case.ids).Count)) 'Plugin array merge duplicated IDs'
+    }
+    foreach ($invalidList in @(@{unexpected='object'},@('valid',12),@('valid',$null),'plain-string')) {
+        Save-Json $communityFile $invalidList
+        $invalidHash=Hash-File $communityFile
+        Reject { & (Join-Path $repo 'setup/Install-System.ps1') -VaultPath $vault } 'Invalid plugin list accepted'
+        Check ((Hash-File $communityFile) -eq $invalidHash) 'Invalid plugin list overwritten'
+    }
+    Save-Json $communityFile @('personal-project-pages','personal-system-tools')
     $note=Join-Safe $vault 'personal-system-starter/03_目标与项目/项目/用户笔记.md'
     Write-Atomic $note ([Text.Encoding]::UTF8.GetBytes("用户内容`n"))
     $data=Join-Safe $vault '.obsidian/plugins/personal-project-pages/data.json';Save-Json $data @{root='personal-system-starter';homeDraft='保留草稿'}

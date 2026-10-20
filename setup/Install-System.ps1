@@ -41,7 +41,15 @@ $communityPath = Join-Safe $vault '.obsidian/community-plugins.json'
 Assert-NoLinks $communityPath
 $communityBefore = Hash-File $communityPath
 $community = @()
-if (Test-Path -LiteralPath $communityPath -PathType Leaf) { $community = @(Get-Content -LiteralPath $communityPath -Raw -Encoding UTF8 | ConvertFrom-Json) }
+if (Test-Path -LiteralPath $communityPath -PathType Leaf) {
+    $communityText = Get-Content -LiteralPath $communityPath -Raw -Encoding UTF8
+    if (!$communityText.TrimStart().StartsWith('[')) { throw 'community-plugins.json 必须是字符串数组。' }
+    # Validate the original JSON, then keep the array in an object property.
+    # This preserves empty arrays and null entries on both PowerShell 5.1 and 7.
+    $null = $communityText | ConvertFrom-Json
+    $decodedCommunity = ConvertFrom-Json -InputObject ('{"items":' + $communityText + '}')
+    $community = @($decodedCommunity.items)
+}
 if (@($community | Where-Object { $_ -isnot [string] }).Count) { throw 'community-plugins.json 必须是字符串数组。' }
 $enable = @($community)
 foreach ($component in @($release.plugins)) {
